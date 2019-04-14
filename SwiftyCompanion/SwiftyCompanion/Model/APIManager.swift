@@ -30,7 +30,7 @@ class APIManager {
                 failure?(error.localizedDescription)
             } else if let dt = data {
                 do {
-                    if let dictionary: NSDictionary = try JSONSerialization.jsonObject(with: dt, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {
+                    if let dictionary: NSDictionary = try JSONSerialization.jsonObject(with: dt, options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary {/Users/averemi/Projects/Swift/SwiftyCompanion/SwiftyCompanion/Podfile
                         if let token = dictionary["access_token"] as? String {
                             self.accessToken = token
                             success?(true)
