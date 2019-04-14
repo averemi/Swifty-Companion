@@ -11,10 +11,7 @@ import Alamofire
 import SwiftyJSON
 
 class APIManager {
-    var userCode: String = ""
-    var accessToken: String = ""
-    var userId: Int = 0
-    var isLoggedIn = false
+    var token = ""
     
     func getAccessToken(success: ((Bool)->Void)?, failure: ((String)->Void)?) {
         let url = URLs.getToken
@@ -22,13 +19,17 @@ class APIManager {
             "client_id": Constants.uid,
             "client_secret": Constants.clientSecret]
         
+    /*    if let accToken = UserDefaults.standard.string(forKey: "accessToken") {
+            
+        }*/
         Alamofire.request(url, method: .post, parameters: params).validate().responseJSON {
             response in
             switch response.result {
             case .success:
                 if let value = response.result.value {
                     let json = JSON(value)
-                    let token = json["access_token"].stringValue
+                    self.token = json["access_token"].stringValue
+                    UserDefaults.standard.set(self.token, forKey: "accessToken")
                     //NSUserDefaults.standardUserDefaults().setObject(json["access_token"].stringValue, forKey: "token")
                 //    print("NEW token:", self.token)
                  //   self.check_token()
@@ -67,8 +68,8 @@ class APIManager {
             }
         }
         task.resume()*/
-    }
-}
+  //  }
+//}
 
 extension APIManager {
     static let shared = APIManager()
