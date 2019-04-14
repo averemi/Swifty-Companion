@@ -19,30 +19,31 @@ class APIManager {
             "client_id": Constants.uid,
             "client_secret": Constants.clientSecret]
         
-    /*    if let accToken = UserDefaults.standard.string(forKey: "accessToken") {
-            
-        }*/
-        Alamofire.request(url, method: .post, parameters: params).validate().responseJSON {
-            response in
-            switch response.result {
-            case .success:
-                if let value = response.result.value {
-                    let json = JSON(value)
-                    self.token = json["access_token"].stringValue
-                    UserDefaults.standard.set(self.token, forKey: "accessToken")
-                    //NSUserDefaults.standardUserDefaults().setObject(json["access_token"].stringValue, forKey: "token")
-                //    print("NEW token:", self.token)
-                 //   self.check_token()
+        let accToken = UserDefaults.standard.string(forKey: "accessToken")
+        if accToken != nil {
+            checkIfTokenValid()
+        } else {
+            Alamofire.request(url, method: .post, parameters: params).validate().responseJSON {
+                response in
+                switch response.result {
+                case .success:
+                    if let value = response.result.value {
+                        let json = JSON(value)
+                        self.token = json["access_token"].stringValue
+                        UserDefaults.standard.set(self.token, forKey: "accessToken")
+                        self.checkIfTokenValid()
+                    }
+                case .failure(let error):
+                    print(error)
                 }
-            case .failure(let error):
-                print(error)
             }
         }
-    } /*else {
-        self.token = verif as! String
-        print("SAME token:", self.token)
-        check_token()*/
     }
+    
+    func checkIfTokenValid() {
+        
+    }
+}
     
     
       //  let url = URL(string: "https://api.intra.42.fr/oauth/token?grant_type=authorization_code&client_id=\(ClientInfo.UID)&client_secret=\(ClientInfo.Secret)&code=\(self.userCode)&redirect_uri=\(ClientInfo.RedirectURI)")
