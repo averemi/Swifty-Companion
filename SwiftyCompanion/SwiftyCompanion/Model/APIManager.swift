@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import Alamofire
+import SwiftyJSON
 
 class APIManager {
     var userCode: String = ""
@@ -19,6 +21,29 @@ class APIManager {
         let params = [ "grant_type" : "client_credentials",
             "client_id": Constants.uid,
             "client_secret": Constants.clientSecret]
+        
+        Alamofire.request(url, method: .post, parameters: params).validate().responseJSON {
+            response in
+            switch response.result {
+            case .success:
+                if let value = response.result.value {
+                    let json = JSON(value)
+                    let token = json["access_token"].stringValue
+                    //NSUserDefaults.standardUserDefaults().setObject(json["access_token"].stringValue, forKey: "token")
+                //    print("NEW token:", self.token)
+                 //   self.check_token()
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    } /*else {
+        self.token = verif as! String
+        print("SAME token:", self.token)
+        check_token()*/
+    }
+    
+    
       //  let url = URL(string: "https://api.intra.42.fr/oauth/token?grant_type=authorization_code&client_id=\(ClientInfo.UID)&client_secret=\(ClientInfo.Secret)&code=\(self.userCode)&redirect_uri=\(ClientInfo.RedirectURI)")
        /* var request = URLRequest(url: url!)
         
