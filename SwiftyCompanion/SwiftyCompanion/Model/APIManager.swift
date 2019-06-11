@@ -16,7 +16,7 @@ class APIManager {
     var userId: Int = 0
     var isLoggedIn = false
     
-    func getAccessToken(success: ((Bool)->Void)?, failure: ((String)->Void)?) {
+    func getAccessToken(success: ((Bool)->Void)? = {_ in return }, failure: ((String)->Void)? = {_ in return }) {
         let url = URLs.getToken
         let params = [ "grant_type" : "client_credentials",
             "client_id": Constants.uid,
@@ -26,9 +26,12 @@ class APIManager {
             response in
             switch response.result {
             case .success:
+                
                 if let value = response.result.value {
                     let json = JSON(value)
                     let token = json["access_token"].stringValue
+                    print("token \(token)")
+                    self.checkAccessToken()
                     //NSUserDefaults.standardUserDefaults().setObject(json["access_token"].stringValue, forKey: "token")
                 //    print("NEW token:", self.token)
                  //   self.check_token()
@@ -37,12 +40,52 @@ class APIManager {
                 print(error)
             }
         }
-    } /*else {
-        self.token = verif as! String
-        print("SAME token:", self.token)
-        check_token()*/
     }
     
+    func checkAccessToken() {
+        let url = URLs.checkToken
+        let bearer = "Bearer \(accessToken)"
+        let params = [ "Authorization": "Bearer \(accessToken)"]
+
+      /*  var request = URLRequest(url: URL(string: url)!)
+        request.httpMethod = "GET"
+        request.setValue(bearer, forHTTPHeaderField: "Authorization")
+        Alamofire.request(request).validate().responseJSON {*/
+        Alamofire.request(url, method: .get, parameters: params).validate().responseJSON {
+            response in
+            switch response.result {
+            case .success:
+                if let value = response.result.value {
+                    let json = JSON(value)
+                    let expirationTime = json["expires_in_seconds"].stringValue
+                    print("The token expires in \(expirationTime)")
+                }
+            case .failure(let error):
+                print(error)
+                self.accessToken = ""
+                self.getAccessToken()
+            }
+        }
+    }
+    }
+
+    /*
+ request.HTTPMethod = "GET"
+ request.setValue(bearer, forHTTPHeaderField: "Authorization")
+ Alamofire.request(request).validate().responseJSON {
+ response in
+ switch response.result {
+ case .Success:
+ if let value = response.result.value {
+ let json = JSON(value)
+ print("The token will expire in:", json["expires_in_seconds"], "seconds.")
+ }
+ case .Failure:
+ print("Error: Trying to get a new token...")
+ NSUserDefaults.standardUserDefaults().removeObjectForKey("token")
+ self.get_token()
+ }
+ */
     
       //  let url = URL(string: "https://api.intra.42.fr/oauth/token?grant_type=authorization_code&client_id=\(ClientInfo.UID)&client_secret=\(ClientInfo.Secret)&code=\(self.userCode)&redirect_uri=\(ClientInfo.RedirectURI)")
        /* var request = URLRequest(url: url!)
@@ -67,8 +110,8 @@ class APIManager {
             }
         }
         task.resume()*/
-    }
-}
+  //  }
+//}
 
 extension APIManager {
     static let shared = APIManager()

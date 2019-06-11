@@ -16,11 +16,23 @@ class SearchViewController: UIViewController {
     }
     
     func getData() {
+        if APIManager.shared.accessToken == "" {
+            getToken()
+        } else {
+            checkToken()
+        }
+    }
+    
+    func getToken() {
         APIManager.shared.getAccessToken(success: { isSuccess in
             
         }) { error in
             
         }
+    }
+    
+    func checkToken() {
+        APIManager.shared.checkAccessToken()
     }
 }
 
