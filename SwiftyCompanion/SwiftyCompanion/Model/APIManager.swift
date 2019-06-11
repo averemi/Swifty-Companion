@@ -11,10 +11,7 @@ import Alamofire
 import SwiftyJSON
 
 class APIManager {
-    var userCode: String = ""
-    var accessToken: String = ""
-    var userId: Int = 0
-    var isLoggedIn = false
+    var token = ""
     
     func getAccessToken(success: ((Bool)->Void)? = {_ in return }, failure: ((String)->Void)? = {_ in return }) {
         let url = URLs.getToken
@@ -44,8 +41,8 @@ class APIManager {
     
     func checkAccessToken() {
         let url = URLs.checkToken
-        let bearer = "Bearer \(accessToken)"
-        let params = [ "Authorization": "Bearer \(accessToken)"]
+        let bearer = "Bearer \(token)"
+        let params = [ "Authorization": "Bearer \(token)"]
 
       /*  var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "GET"
@@ -62,7 +59,7 @@ class APIManager {
                 }
             case .failure(let error):
                 print(error)
-                self.accessToken = ""
+                self.token = ""
                 self.getAccessToken()
             }
         }
@@ -86,6 +83,7 @@ class APIManager {
  self.get_token()
  }
  */
+
     
       //  let url = URL(string: "https://api.intra.42.fr/oauth/token?grant_type=authorization_code&client_id=\(ClientInfo.UID)&client_secret=\(ClientInfo.Secret)&code=\(self.userCode)&redirect_uri=\(ClientInfo.RedirectURI)")
        /* var request = URLRequest(url: url!)

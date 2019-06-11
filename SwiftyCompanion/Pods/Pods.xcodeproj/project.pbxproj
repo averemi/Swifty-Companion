@@ -486,7 +486,12 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+<<<<<<< HEAD
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+=======
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+>>>>>>> e4f9c494054bdfd86b71e0dec0b76f7f2df2f1b6
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;

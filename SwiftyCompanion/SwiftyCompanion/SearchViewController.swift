@@ -16,7 +16,7 @@ class SearchViewController: UIViewController {
     }
     
     func getData() {
-        if APIManager.shared.accessToken == "" {
+        if APIManager.shared.token == "" {
             getToken()
         } else {
             checkToken()
