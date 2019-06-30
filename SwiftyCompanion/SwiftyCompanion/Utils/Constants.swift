@@ -16,4 +16,5 @@ struct Constants {
 struct URLs {
     static let getToken = "https://api.intra.42.fr/oauth/token"
     static let checkToken = "https://api.intra.42.fr/oauth/token/info"
+    static let getUser = "https://api.intra.42.fr/v2/users/"
 }

@@ -9,6 +9,9 @@
 import UIKit
 
 class SearchViewController: UIViewController {
+    @IBOutlet weak var searchBar: UISearchBar!
+    var user: User? = nil
+    let dataService = DataService()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,3 +39,19 @@ class SearchViewController: UIViewController {
     }
 }
 
+// MARK: - UISearchBarDelegate
+extension SearchViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = searchBar.text else { return }
+        
+        // loader
+        APIManager.shared.searchUser(user: text.lowercased(), success: { [weak self] json in
+            guard let self = self else { return }
+            
+            self.user = self.dataService.parseUser(from: json)
+        }) {
+            // loader stop
+            // user not found pop up
+        }
+    }
+}
