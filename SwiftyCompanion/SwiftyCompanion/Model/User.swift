@@ -12,5 +12,13 @@ struct User {
     let displayName: String
     let login: String
     let imageUrl: String
+    let wallet: String
+    let email: String
+    let level: String
+    let city: String
+    let correctionPoint: String
+    let phone: String
+    var projects: [[String: Int]]?
+    var skills: [[String: Double]]?
   //  var JSON: JSON
 }

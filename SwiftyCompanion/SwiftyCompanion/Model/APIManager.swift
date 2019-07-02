@@ -80,26 +80,3 @@ class APIManager {
 extension APIManager {
     static let shared = APIManager()
 }
-
-
-/*
- func check_user(user: String, completion: JSON? -> Void) {
- let userUrl = NSURL(string: "https://api.intra.42.fr/v2/users/" + user)
- let bearer = "Bearer " + self.token
- let request = NSMutableURLRequest(URL: userUrl!)
- request.HTTPMethod = "GET"
- request.setValue(bearer, forHTTPHeaderField: "Authorization")
- Alamofire.request(request).validate().responseJSON {
- response in
- switch response.result {
- case .Success:
- if let value = response.result.value {
- let json = JSON(value)
- completion(json)
- }
- case .Failure:
- completion(nil)
- print("Error: This login doesn't exists")
- }
- }
- }*/
