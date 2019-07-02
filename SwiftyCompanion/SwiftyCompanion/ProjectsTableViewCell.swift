@@ -9,16 +9,13 @@
 import UIKit
 
 class ProjectsTableViewCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    @IBOutlet weak var markLabel: UILabel!
+    @IBOutlet weak var projectLabel: UILabel!
+    
+    func configure(project: [String: Int]) {
+        for (key, value) in project {
+            projectLabel.text = "\(key)"
+            markLabel.text = "\(value)"
+        }
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }

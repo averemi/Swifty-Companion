@@ -9,16 +9,17 @@
 import UIKit
 
 class SkillsTableViewCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    @IBOutlet weak var skillLabel: UILabel!
+    @IBOutlet weak var levelLabel: UILabel!
+    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var percentageLabel: UILabel!
+    
+    func configure(skill: [String: Double]) {
+        for (key, value) in skill {
+            skillLabel.text = "\(key)"
+            levelLabel.text = "\(value)"
+            progressView.progress = Float(value / 20)
+            percentageLabel.text = (String(format: "%.2f", 100 * value / 20)) + "%"
+        }
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }
