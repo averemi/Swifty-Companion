@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import PKHUD
 
 class ProfileViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
@@ -32,6 +33,7 @@ class ProfileViewController: UIViewController {
     func prepareUI() {
         guard let user = user else { return }
 
+        HUD.show(.progress)
         levelLabel.text = user.level
         correctionPointsLabel.text = user.correctionPoint
         walletLabel.text = "\(user.wallet) ₳"
@@ -46,6 +48,7 @@ class ProfileViewController: UIViewController {
             guard let self = self else { return }
 
             self.photoImageView.image = image
+            HUD.hide()
         }
         photoImageView.layer.cornerRadius = photoImageView.frame.height / 2
         

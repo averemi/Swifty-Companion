@@ -31,11 +31,12 @@ class APIManager {
                 }
             case .failure(let error):
                 print(error)
+                failure?(error.localizedDescription)
             }
         }
     }
     
-    func checkAccessToken() {
+    func checkAccessToken(failure: ((String)->Void)? = {_ in return }) {
         let url = URLs.checkToken
         let headers = [ "Authorization": "Bearer \(token)"]
 
@@ -53,6 +54,7 @@ class APIManager {
                 }
             case .failure(let error):
                 print(error)
+                failure?(error.localizedDescription)
             }
         }
     }

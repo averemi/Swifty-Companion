@@ -44,14 +44,19 @@ class SearchViewController: UIViewController {
     
     func getToken() {
         APIManager.shared.getAccessToken(success: { isSuccess in
-            
-        }) { error in
-            // unable to get token pop up
+        }) { [weak self] error in
+            guard let self = self else { return }
+
+            self.showPopUp(with: "Unable to get token now. Please try again later.")
         }
     }
     
     func checkToken() {
-        APIManager.shared.checkAccessToken()
+        APIManager.shared.checkAccessToken { [weak self] error in
+            guard let self = self else { return }
+
+            self.showPopUp(with: "Unable to refresh the token now. Please try again later.")
+        }
     }
     
     func prepareUI() {
@@ -95,7 +100,10 @@ extension SearchViewController: UISearchBarDelegate {
         user = nil
         guard let text = searchBar.text else { return }
         
-        // loader
+        if searchBar.text == "" {
+            user = nil
+            return
+        }
         checkToken()
         APIManager.shared.searchUser(user: text.lowercased(), success: { [weak self] json in
             guard let self = self else { return }
@@ -104,9 +112,10 @@ extension SearchViewController: UISearchBarDelegate {
             self.tableView.reloadData()
         }) { [weak self] in
             guard let self = self else { return }
+            self.user = nil
+            self.showPopUp(with: "User not found. Please check the login.")
+            
             self.tableView.reloadData()
-            // loader stop
-            // user not found pop up
         }
     }
     
