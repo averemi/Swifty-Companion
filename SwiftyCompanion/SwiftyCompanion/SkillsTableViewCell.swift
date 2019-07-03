@@ -17,7 +17,7 @@ class SkillsTableViewCell: UITableViewCell {
     func configure(skill: [String: Double]) {
         for (key, value) in skill {
             skillLabel.text = "\(key)"
-            levelLabel.text = "\(value)"
+            levelLabel.text = (String(format: "%.2f", value))
             progressView.progress = Float(value / 20)
             percentageLabel.text = (String(format: "%.2f", 100 * value / 20)) + "%"
         }

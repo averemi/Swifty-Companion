@@ -19,8 +19,21 @@ class SearchViewController: UIViewController {
 
         user = nil
         getData()
+        prepareUI()
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.9450980392, green: 0.9450980392, blue: 0.9450980392, alpha: 1)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.937254902, green: 0.937254902, blue: 0.9568627451, alpha: 1)
+    }
+
     func getData() {
         if APIManager.shared.token == "" {
             getToken()
@@ -39,6 +52,11 @@ class SearchViewController: UIViewController {
     
     func checkToken() {
         APIManager.shared.checkAccessToken()
+    }
+    
+    func prepareUI() {
+        navigationItem.titleView = searchBar
+        navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -89,6 +107,13 @@ extension SearchViewController: UISearchBarDelegate {
             self.tableView.reloadData()
             // loader stop
             // user not found pop up
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text == "" {
+            user = nil
+            tableView.reloadData()
         }
     }
 }

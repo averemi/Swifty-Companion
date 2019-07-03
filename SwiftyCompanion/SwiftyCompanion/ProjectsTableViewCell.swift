@@ -16,6 +16,7 @@ class ProjectsTableViewCell: UITableViewCell {
         for (key, value) in project {
             projectLabel.text = "\(key)"
             markLabel.text = "\(value)"
+            markLabel.textColor = (value >= 75 || (value >= 50 && key.lowercased().range(of:"piscine") != nil)) ? #colorLiteral(red: 0.1960784346, green: 0.3411764801, blue: 0.1019607857, alpha: 1) : #colorLiteral(red: 0.3098039329, green: 0.01568627544, blue: 0.1294117719, alpha: 1)
         }
     }
 }
