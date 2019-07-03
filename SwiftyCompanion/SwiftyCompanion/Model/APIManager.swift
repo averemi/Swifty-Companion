@@ -9,6 +9,7 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+import PKHUD
 
 class APIManager {
     var token = ""
@@ -19,10 +20,12 @@ class APIManager {
             "client_id": Constants.uid,
             "client_secret": Constants.clientSecret]
         
+        HUD.show(.progress)
         Alamofire.request(url, method: .post, parameters: params).validate().responseJSON {
             response in
             switch response.result {
             case .success:
+                HUD.hide()
                 if let value = response.result.value {
                     let json = JSON(value)
                     self.token = json["access_token"].stringValue
@@ -30,6 +33,7 @@ class APIManager {
                     self.checkAccessToken()
                 }
             case .failure(let error):
+                HUD.hide()
                 print(error)
                 failure?(error.localizedDescription)
             }
@@ -40,10 +44,12 @@ class APIManager {
         let url = URLs.checkToken
         let headers = [ "Authorization": "Bearer \(token)"]
 
+        HUD.show(.progress)
         Alamofire.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers).validate().responseJSON {
             response in
             switch response.result {
             case .success:
+                HUD.hide()
                 if let value = response.result.value {
                     let json = JSON(value)
                     let expirationTime = json["expires_in_seconds"].stringValue
@@ -53,6 +59,7 @@ class APIManager {
                     }
                 }
             case .failure(let error):
+                HUD.hide()
                 print(error)
                 failure?(error.localizedDescription)
             }

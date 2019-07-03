@@ -315,7 +315,7 @@
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 <prototypes>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="projectCell" rowHeight="35" id="t6u-IQ-a4c" customClass="ProjectsTableViewCell" customModule="SwiftyCompanion" customModuleProvider="target">
+                                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="projectCell" rowHeight="35" id="t6u-IQ-a4c" customClass="ProjectsTableViewCell" customModule="SwiftyCompanion" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="28" width="280" height="35"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="t6u-IQ-a4c" id="Otf-P4-9an">
@@ -351,7 +351,7 @@
                                                             <outlet property="projectLabel" destination="4gU-jn-xcG" id="Qot-d1-pvY"/>
                                                         </connections>
                                                     </tableViewCell>
-                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="skillCell" rowHeight="50" id="aA5-wV-t0g" customClass="SkillsTableViewCell" customModule="SwiftyCompanion" customModuleProvider="target">
+                                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="skillCell" rowHeight="50" id="aA5-wV-t0g" customClass="SkillsTableViewCell" customModule="SwiftyCompanion" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="63" width="280" height="50"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aA5-wV-t0g" id="3jB-0k-OEz">

@@ -48,10 +48,9 @@ class ProfileViewController: UIViewController {
             guard let self = self else { return }
 
             self.photoImageView.image = image
+            self.photoImageView.layer.cornerRadius = self.photoImageView.frame.width / 2
             HUD.hide()
         }
-        photoImageView.layer.cornerRadius = photoImageView.frame.height / 2
-        
         navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.937254902, green: 0.937254902, blue: 0.9568627451, alpha: 1)
     }
 }
